@@ -1,40 +1,39 @@
 # growth-mobile
 
-基于 Expo、React Native 和 TypeScript 的移动端项目骨架。
+乐学成长平台的移动端工程，使用 Expo、React Native 和 TypeScript，已包含学生与教师导航、登录注册、成长任务、目标、班级动态、个人资料及教师分析页面。
 
-## 当前状态
+对应 Web 与后端工程：[pregrow](https://github.com/Seeleangel/pregrow)。
 
-当前代码保留 Expo 初始页面，尚未包含业务模块、后端服务或产品成效数据。此仓库作为移动端开发起点。
-
-## 技术栈
-
-- Expo 54
-- React Native 0.81
-- React 19
-- TypeScript 5.9
-
-具体依赖以 `package.json` 和 `package-lock.json` 为准。
-
-## 本地运行
+## 本地开发
 
 ```bash
 npm ci
-npm run start
+cp .env.example .env
+# 填写自己的 Supabase URL、anon key 和后端 API 地址。
+npm start
 ```
 
-按需使用 `npm run android`、`npm run ios` 或 `npm run web`；对应平台需准备适用的运行环境。以上命令来自仓库脚本，本次文档整理未执行应用运行验证。
+```bash
+npm run android
+npm run ios
+npm run web
+npx tsc --noEmit
+npx expo export --platform web --output-dir dist-web
+```
 
-## 目录
+默认 API 地址指向本地 3003 端口。真机或模拟器需配置其可访问的后端地址。`EXPO_PUBLIC_*` 会进入客户端包，Supabase service key 应仅配置在后端。
 
-- `App.tsx`：初始页面
-- `index.ts`：应用入口
-- `app.json`：Expo 配置
-- `assets/`：应用图标及启动资源
+## 源码结构
 
-## 后续补充
+- `src/screens/`：学生、教师及认证页面。
+- `src/navigation/`：导航结构。
+- `src/services/`、`src/api/`：认证和服务调用。
+- `src/config/`：应用配置。
+- `src/components/`、`src/animations/`：组件与动画。
+- `src/assets/`：界面插图。
 
-- 明确目标用户和首个核心流程
-- 实现业务页面和数据管理
-- 补充运行截图、测试和发布说明
+已从关联此仓库的备份工程同步业务源码，排除了实际密钥、构建输出和开发助手记录。
 
-[返回个人项目导航](https://github.com/Seeleangel)
+## 当前验证状态
+
+依赖安装和 Web 导出通过。TypeScript 检查仍有 30 个错误，涉及动画模块的导入、组件泛型及任务类型等；原生 Android / iOS、真实认证、后端读写及完整交互尚未验收。Web 导出成功不代表移动端已完成运行验收。
